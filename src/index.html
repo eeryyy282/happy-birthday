@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday Yuni Azira</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Lora:ital,wght@0,400;0,500;1,400&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <audio id="bg-music" src="src/kota_ini_tak_sama_tanpamu.mp3" loop preload="auto"></audio>
+    <div id="fireflies-container"></div>
+
+    <div id="penguin-companion">
+        <div class="penguin-bubble" id="penguin-bubble">Halo! 👋</div>
+        <img src="src/popoi.png" alt="Pinguin Penjaga" class="penguin-img" id="penguin-img" draggable="false">
+    </div>
+
+    <div id="cover-page">
+        <h1 id="cover-title">Untuk Seseorang di Masa Lalu, Kini, dan Nanti.</h1>
+        <p id="cover-desc">Terima kasih sudah bertahan dengan hebat sampai di detik ini...</p>
+
+        <button class="btn-buka" id="btn-awal" onclick="tampilkanAreaPassword()">Buka</button>
+
+        <div class="password-container" id="password-area">
+            <p style="font-style: italic; color: var(--text-sepia); margin-bottom: 15px; font-size: 1.1rem; text-align: center;">Kapan hari yang spesial itu?</p>
+            <div class="mcq-grid">
+                <button class="btn-mcq" onclick="cekPasswordPilihan('salah')">14 Februari</button>
+                <button class="btn-mcq" onclick="cekPasswordPilihan('benar')">29 Maret</button>
+                <button class="btn-mcq" onclick="cekPasswordPilihan('salah')">17 Agustus</button>
+                <button class="btn-mcq" onclick="cekPasswordPilihan('salah')">25 Desember</button>
+            </div>
+            <p class="error-msg" id="error-msg">Coba ingat lagi!</p>
+        </div>
+    </div>
+
+    <div id="main-content">
+        <section class="hero slow-fade">
+            <h1>Selamat Ulang Tahun, Jiwa yang kuat, indah, dan hebat.</h1>
+            <p>"Maaf aku tidak bisa memberikan sesuatu yang bernilai, barang yang bisa dipakai, atau kenangan yang bisa diceritakan."</p>
+        </section>
+
+        <section class="cake-section slow-fade" id="cake-section">
+            <h2 class="section-title" style="margin-bottom: 10px;">Waktunya Membuat Harapan</h2>
+            <div class="cake-container">
+                <div class="cake">
+                    <div class="candle"></div>
+                    <div class="smoke" id="smoke"></div>
+                    <div class="flame-container">
+                        <div class="flame" id="flame" onclick="tiupLilin()" title="Sentuh untuk meniup"></div>
+                    </div>
+                    <div class="icing"></div>
+                </div>
+            </div>
+            <p class="cake-instruction" id="cake-instruction">Pejamkan mata, ucapkan harapanmu dalam hati,<br>lalu <b>sentuh apinya</b> untuk meniup lilin.</p>
+            <p class="wish-text" id="wish-text" style="display: none;">Harapanmu pasti akan didengar oleh semesta. Aamiin. ✨</p>
+        </section>
+
+        <div id="hidden-after-cake" class="hidden-after-cake">
+            <section class="gallery-section">
+                <h2 class="section-title slow-fade">Terima Kasih pernah Menjadi Bagian dari Hidupku, Menemani dan Mengajariku dalam Banyak Hal</h2>
+                <div class="grid">
+                    <div class="photo-frame slow-fade">
+                        <div class="img-container">
+                            <img src="src/1.jpg" alt="Kenangan 1" loading="lazy" decoding="async">
+                        </div>
+                    </div>
+                    <div class="photo-frame slow-fade">
+                        <div class="img-container">
+                            <img src="src/2.jpg" alt="Kenangan 2" loading="lazy" decoding="async">
+                        </div>
+                    </div>
+                    <div class="photo-frame slow-fade">
+                        <div class="img-container">
+                            <img src="src/3.jpg" alt="Kenangan 3" loading="lazy" decoding="async">
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="letter-section slow-fade">
+                <div class="letter-interaction-area">
+                    <div class="amplop-glow" id="amplop-glow"></div>
+                    <div class="amplop-container" id="amplop-container" onclick="bukaAmplop(event)" title="Sentuh untuk membuka surat">
+                        <div class="amplop-float">
+                            <div class="amplop">
+                                <div class="amplop-back"></div>
+                                <div class="amplop-kertas-mini">
+                                    <div style="width: 80%; height: 3px; background: #e8d5b5; margin: 35px auto 15px;"></div>
+                                    <div style="width: 90%; height: 3px; background: #e8d5b5; margin: 0 auto 15px;"></div>
+                                    <div style="width: 70%; height: 3px; background: #e8d5b5; margin: 0 auto 15px;"></div>
+                                </div>
+                                <div class="amplop-front"></div>
+                                <div class="amplop-bottom"></div>
+                                <div class="amplop-flap" id="amplop-flap"></div>
+                                <div class="amplop-seal" id="amplop-seal">Buka Surat</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="old-paper hidden-surat" id="surat-cinta">
+                        <h2>Surat Kecil Untukmu</h2>
+                        <p>29 Maret lagi, ya? Tahun lalu, aku melihat dengan mataku, seseorang yang baru saja menginjak
+                            usia 22 tahun. Menyerukan kepada dunia bahwa ia lebih tua dariku. Ia menceritakan banyak hal
+                            yang baik tentangku. Dan aku bahagia mendengar apapun yang keluar darinya.</p>
+                        <p>Sekarang, ia kembali lagi lebih tua jauh dariku. Namun tidak dengan sakit dan luka dari masa
+                            lalu. Ia sudah tumbuh kuat, mandiri, dan hebat. Dulu yang ketakutan menghadapi banyak
+                            tuntutan, kini berdiri seorang diri menghadapi semua kebenaran.</p>
+                        <p>Aku bahagia, dan aku bangga. Mungkin dengan cara kita membatasi interaksi, menjauh satu sama
+                            lain, dan kembali dengan kehidupan kita sendiri, adalah caramu membuktikan bahwa kamu
+                            menjadi wanita yang sangat kuat, tangguh dan hebat sekarang.</p>
+                        <p>Tetaplah menjadi hebat, tetaplah menjadi kuat, dan tetaplah menjadi apa yang kau inginkan,
+                            apa yang kau banggakan, dan apa yang kau bahagiakan. Tenang saja, Aku tidak akan kalah, aku
+                            juga akan terus berkembang, fokus ke diri dan kehidupanku, serta mencoba untuk menjadi lebih
+                            sempurna. Mungkin tidak akan sesempurna "sempurna" tapi setidaknya kelak kau akan melihatku
+                            sebagai orang yang "lebih baik".</p>
+                        <p>Happy birthday, Yuni Azira.</p>
+
+                        <div style="text-align: right; margin-top: 60px; padding-right: 20px;">
+                            <div style="height: 80px; margin-bottom: 10px; display: flex; justify-content: flex-end; align-items: center;">
+                                <span style="font-family: 'Dancing Script', cursive; font-size: 3.5rem; color: var(--accent-dusty);">Airi</span>
+                            </div>
+                            <p style="font-size: 1.1rem; font-style: italic; color: var(--text-sepia); margin: 0;">dibuat oleh Airi, sepenuh hati.</p>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+
+            <footer>
+                <p>29 Maret 2026.</p>
+            </footer>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+
+</html>
