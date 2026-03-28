@@ -81,7 +81,7 @@
             display: flex; flex-direction: column; justify-content: center; align-items: center;
             z-index: 10000;
             transition: transform 1.5s cubic-bezier(0.4, 0, 0.2, 1), opacity 1.5s ease-in-out, filter 1.5s ease;
-            transform-origin: center center; padding: 30px; text-align: center;
+            transform-origin: center center; padding: 20px; text-align: center;
         }
 
         #cover-page.opening {
@@ -89,7 +89,7 @@
         }
 
         #cover-page h1 { font-size: 3.5rem; margin-bottom: 20px; opacity: 0.9; transition: opacity 0.5s ease; }
-        #cover-page p { font-size: 1.3rem; font-style: italic; margin-bottom: 50px; color: var(--accent-dusty); transition: opacity 0.5s ease; }
+        #cover-page p { font-size: 1.3rem; font-style: italic; margin-bottom: 40px; color: var(--accent-dusty); transition: opacity 0.5s ease; max-width: 600px;}
 
         .btn-buka {
             padding: 12px 40px; font-size: 1.1rem; font-family: 'Lora', serif;
@@ -107,7 +107,7 @@
 
         .btn-buka:hover {
             background-color: var(--text-sepia); color: var(--bg-paper);
-            box-shadow: 0 5px 20px var(--shadow-warm); transform: translateY(-3px);
+            box-shadow: 0 5px 20px var(--shadow-warm); transform: translate3d(0, -3px, 0);
         }
 
         .btn-buka.clicked {
@@ -137,7 +137,7 @@
 
         .btn-mcq:hover {
             background-color: var(--accent-dusty); color: white;
-            box-shadow: 0 5px 15px var(--shadow-warm); transform: translateY(-2px);
+            box-shadow: 0 5px 15px var(--shadow-warm); transform: translate3d(0, -2px, 0);
             border-color: transparent;
         }
 
@@ -155,24 +155,25 @@
         }
 
         /* ==========================================
-           KONTEN UTAMA & ANIMASI SCROLL
+           KONTEN UTAMA & ANIMASI SCROLL (OPTIMIZED)
            ========================================== */
         #main-content { display: none; opacity: 0; position: relative; z-index: 1; }
 
         .slow-fade {
-            opacity: 0; transform: translateY(40px);
-            transition: opacity 1.8s ease-out, transform 1.8s ease-out;
+            opacity: 0; transform: translate3d(0, 40px, 0); /* translate3d memicu GPU acceleration */
+            transition: opacity 1.2s ease-out, transform 1.2s ease-out;
+            will-change: opacity, transform;
         }
-        .slow-fade.active { opacity: 1; transform: translateY(0); }
+        .slow-fade.active { opacity: 1; transform: translate3d(0, 0, 0); }
 
         /* --- HERO SECTION --- */
         .hero {
             min-height: 90vh; display: flex; flex-direction: column; justify-content: center;
-            align-items: center; text-align: center; padding: 100px 20px 40px 20px;
+            align-items: center; text-align: center; padding: 80px 20px 40px 20px;
         }
 
         .hero h1 { 
-            font-size: 4.8rem; margin-bottom: 30px; line-height: 1.2;
+            font-size: 4.5rem; margin-bottom: 30px; line-height: 1.2;
             text-shadow: 0 0 30px rgba(192, 138, 138, 0.4);
         }
         .hero p {
@@ -202,15 +203,18 @@
            WADAH RAHASIA (MUNCUL SETELAH TIUP LILIN)
            ========================================== */
         .hidden-after-cake {
-            display: none; opacity: 0; transform: translateY(80px) scale(0.97);
-            transition: all 2s cubic-bezier(0.25, 1, 0.5, 1); padding-top: 40px;
+            display: none; 
+            opacity: 0; 
+            /* REVISI: Menghapus transisi "scale/transform" untuk meringankan rendering mobile */
+            transition: opacity 1.5s ease; 
+            padding-top: 40px;
         }
-        .hidden-after-cake.revealed { opacity: 1; transform: translateY(0) scale(1); }
+        .hidden-after-cake.revealed { opacity: 1; }
 
         /* --- GALLERY SECTION --- */
-        .gallery-section { padding: 80px 20px 120px 20px; max-width: 1100px; margin: 0 auto; position: relative; z-index: 2; }
-        .section-title { text-align: center; font-size: 3.5rem; margin-bottom: 80px; color: var(--accent-dusty); }
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 60px; padding: 20px; perspective: 1000px; }
+        .gallery-section { padding: 40px 20px 120px 20px; max-width: 1100px; margin: 0 auto; position: relative; z-index: 2; }
+        .section-title { text-align: center; font-size: 3rem; margin-bottom: 60px; color: var(--accent-dusty); line-height: 1.3;}
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 40px; padding: 20px; perspective: 1000px; }
 
         .photo-frame {
             background-color: var(--photo-border); padding: 15px 15px 50px 15px; 
@@ -218,41 +222,45 @@
             transform: rotate(-2deg); 
             transition: transform 0.4s ease-out, box-shadow 0.4s ease-out;
             position: relative; cursor: pointer; transform-style: preserve-3d;
+            will-change: transform;
         }
 
-        .photo-frame:nth-child(even) { transform: rotate(2deg) translateY(20px); }
-        .photo-frame:nth-child(3n) { transform: rotate(-1deg) translateY(-15px); }
+        .photo-frame:nth-child(even) { transform: rotate(2deg) translateY(10px); }
+        .photo-frame:nth-child(3n) { transform: rotate(-1deg) translateY(-10px); }
 
         .photo-frame.is-touched, .photo-frame.is-3d-hovered { box-shadow: 15px 20px 40px rgba(92, 77, 66, 0.3), -5px -5px 20px rgba(255,255,255,0.5); z-index: 10; }
 
         .img-container { width: 100%; height: 320px; overflow: hidden; position: relative; border: 1px solid rgba(0,0,0,0.1); transform: translateZ(20px); }
-        .img-container img { width: 100%; height: 100%; object-fit: cover; filter: sepia(0.7) contrast(0.9) brightness(0.9) blur(0.5px); transition: filter 1s ease, transform 1s ease; }
+        .img-container img { width: 100%; height: 100%; object-fit: cover; filter: sepia(0.7) contrast(0.9) brightness(0.9); transition: filter 0.8s ease, transform 0.8s ease; }
         
-        .photo-frame.is-touched .img-container img, .photo-frame.is-3d-hovered .img-container img { filter: sepia(0) contrast(1.05) brightness(1.02) blur(0); transform: scale(1.08); }
+        .photo-frame.is-touched .img-container img, .photo-frame.is-3d-hovered .img-container img { filter: sepia(0) contrast(1.05) brightness(1.02); transform: scale(1.05); }
 
         .img-container::after { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: linear-gradient(135deg, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0) 50%); pointer-events: none; }
-        .mobile-hint { text-align: center; font-style: italic; color: var(--accent-dusty); margin-top: -60px; margin-bottom: 40px; font-size: 1rem; display: none; }
+        .mobile-hint { text-align: center; font-style: italic; color: var(--accent-dusty); margin-top: -40px; margin-bottom: 40px; font-size: 1rem; display: none; }
 
         /* ==========================================
            INTERAKSI AMPLOP & SURAT CINTA
            ========================================== */
         .letter-section { padding: 50px 20px 150px 20px; display: flex; justify-content: center; position: relative; z-index: 2; }
-        .letter-interaction-area { position: relative; width: 100%; display: flex; justify-content: center; align-items: center; min-height: 500px; }
+        .letter-interaction-area { position: relative; width: 100%; display: flex; justify-content: center; align-items: center; min-height: 450px; }
 
         .amplop-glow {
             position: absolute; width: 450px; height: 300px;
-            background: radial-gradient(circle, var(--gold-glow) 0%, transparent 70%);
-            border-radius: 50%; filter: blur(30px); animation: pulse-glow 3s infinite alternate;
+            /* REVISI: Mengganti filter:blur yang berat menjadi radial-gradient lembut untuk optimasi GPU */
+            background: radial-gradient(circle, rgba(255, 215, 0, 0.25) 0%, transparent 65%);
+            border-radius: 50%;
+            animation: pulse-glow 3s infinite alternate;
             z-index: 1; opacity: 0.7; pointer-events: none;
+            will-change: opacity, transform;
         }
         @keyframes pulse-glow { 0% { transform: scale(1); opacity: 0.5; } 100% { transform: scale(1.3); opacity: 0.9; } }
 
         .amplop-container { position: absolute; z-index: 10; cursor: pointer; transition: all 0.8s ease; }
-        .amplop-float { animation: float-amplop 3.5s ease-in-out infinite; transform-style: preserve-3d; }
-        @keyframes float-amplop { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
+        .amplop-float { animation: float-amplop 3.5s ease-in-out infinite; transform-style: preserve-3d; will-change: transform; }
+        @keyframes float-amplop { 0%, 100% { transform: translate3d(0, 0, 0); } 50% { transform: translate3d(0, -15px, 0); } }
         
         .amplop { position: relative; width: 450px; height: 300px; perspective: 1200px; filter: drop-shadow(0 20px 30px rgba(92, 77, 66, 0.4)); }
-        .amplop-container:not(.open):hover .amplop-seal { transform: translate(-50%, -50%) scale(1.1); background-color: #ba5757; box-shadow: 0 0 20px rgba(255, 215, 0, 0.5); }
+        .amplop-container:not(.open):hover .amplop-seal { transform: translate3d(-50%, -50%, 0) scale(1.1); background-color: #ba5757; box-shadow: 0 0 20px rgba(255, 215, 0, 0.5); }
 
         .amplop-back { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: #ceab8b; border-radius: 8px; z-index: 1; }
         .amplop-kertas-mini { position: absolute; bottom: 15px; left: 20px; right: 20px; top: 40px; background-color: #fffdf7; border-radius: 5px; box-shadow: 0 0 15px rgba(0,0,0,0.1); z-index: 2; transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1) 0.4s; }
@@ -260,13 +268,13 @@
         .amplop-front::before { content: ''; position: absolute; top: 0; left: 0; border-top: 150px solid transparent; border-bottom: 150px solid transparent; border-left: 225px solid #d4b08f; }
         .amplop-front::after { content: ''; position: absolute; top: 0; right: 0; border-top: 150px solid transparent; border-bottom: 150px solid transparent; border-right: 225px solid #d4b08f; }
         .amplop-bottom { position: absolute; bottom: 0; left: 0; border-left: 225px solid transparent; border-right: 225px solid transparent; border-bottom: 150px solid #dcb897; z-index: 4; border-radius: 0 0 8px 8px; transform-origin: bottom; transform: scale(1.01); }
-        .amplop-flap { position: absolute; top: 0; left: 0; border-left: 225px solid transparent; border-right: 225px solid transparent; border-top: 160px solid #c8a382; transform-origin: top; transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1), z-index 0s 0.25s; z-index: 5; }
+        .amplop-flap { position: absolute; top: 0; left: 0; border-left: 225px solid transparent; border-right: 225px solid transparent; border-top: 160px solid #c8a382; transform-origin: top; transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1), z-index 0s 0.25s; z-index: 5; will-change: transform; }
         .amplop-seal { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background-color: #a64c4c; color: white; padding: 15px 30px; border-radius: 40px; font-family: 'Dancing Script', cursive; font-size: 1.6rem; letter-spacing: 1px; z-index: 6; box-shadow: 0 8px 20px rgba(166, 76, 76, 0.4); transition: all 0.3s ease; white-space: nowrap; }
 
         .amplop-container.open .amplop-flap { transform: rotateX(180deg); z-index: 1; }
-        .amplop-container.open .amplop-seal { opacity: 0; transform: translate(-50%, -50%) scale(0.5); }
-        .amplop-container.open .amplop-kertas-mini { transform: translateY(-120px); }
-        .amplop-container.fade-out { opacity: 0; transform: translateY(50px) scale(0.9); pointer-events: none; }
+        .amplop-container.open .amplop-seal { opacity: 0; transform: translate3d(-50%, -50%, 0) scale(0.5); }
+        .amplop-container.open .amplop-kertas-mini { transform: translate3d(0, -120px, 0); }
+        .amplop-container.fade-out { opacity: 0; transform: translate3d(0, 50px, 0) scale(0.9); pointer-events: none; }
 
         /* --- Kertas Surat Asli --- */
         .old-paper { background-color: #fffdf7; padding: 80px 60px; max-width: 800px; width: 100%; box-shadow: 0 10px 40px rgba(0,0,0,0.15), 0 0 40px rgba(0,0,0,0.05) inset; border: 1px solid #e8e0d5; position: relative; }
@@ -274,8 +282,8 @@
         .old-paper h2 { font-size: 3rem; text-align: center; margin-bottom: 40px; color: var(--accent-dusty); }
         .old-paper p { font-size: 1.25rem; margin-bottom: 30px; text-indent: 40px; position: relative; z-index: 2; }
         
-        .hidden-surat { opacity: 0; transform: scale(0.8) translateY(100px); transition: all 1s cubic-bezier(0.175, 0.885, 0.32, 1.275); position: absolute; pointer-events: none; }
-        .hidden-surat.revealed { opacity: 1; transform: scale(1) translateY(0); position: relative; pointer-events: auto; z-index: 20; }
+        .hidden-surat { opacity: 0; transform: translate3d(0, 80px, 0) scale(0.9); transition: all 1s cubic-bezier(0.175, 0.885, 0.32, 1.275); position: absolute; pointer-events: none; will-change: opacity, transform; }
+        .hidden-surat.revealed { opacity: 1; transform: translate3d(0, 0, 0) scale(1); position: relative; pointer-events: auto; z-index: 20; }
 
         /* Partikel Debu Bintang saat amplop dibuka */
         .stardust {
@@ -310,18 +318,41 @@
             -webkit-user-select: none;
             user-select: none;
             pointer-events: none; 
-            will-change: transform; /* Akselerasi GPU */
+            will-change: transform; 
         }
 
         @keyframes float-penguin { 0%, 100% { transform: translate3d(0, 0, 0) rotate(0deg); } 50% { transform: translate3d(0, -8px, 0) rotate(2deg); } }
         .penguin-img.walking { animation: waddle-penguin 0.4s ease-in-out infinite alternate !important; }
-        @keyframes waddle-penguin { 0% { transform: rotate(-10deg) translateY(-5px); } 100% { transform: rotate(10deg) translateY(-5px); } }
+        @keyframes waddle-penguin { 0% { transform: rotate(-10deg) translate3d(0, -5px, 0); } 100% { transform: rotate(10deg) translate3d(0, -5px, 0); } }
         
         .penguin-bubble { position: absolute; bottom: 110px; left: 50%; background: white; color: var(--text-sepia); padding: 10px 15px; border-radius: 15px; font-size: 0.95rem; font-family: 'Lora', serif; font-style: italic; box-shadow: 0 5px 15px rgba(0,0,0,0.1); white-space: nowrap; opacity: 0; transform: translateX(-50%) scale(0.5); transform-origin: bottom center; transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); pointer-events: none; border: 1px solid var(--accent-dusty); }
         .penguin-bubble.show-bubble { opacity: 1; transform: translateX(-50%) scale(1); }
 
+        /* ==========================================
+           REVISI TOTAL: RESPONSIVE LAYOUT UNTUK HP
+           ========================================== */
         @media (max-width: 768px) {
-            .hero h1 { font-size: 3.5rem; } .section-title { font-size: 2.8rem; } .mobile-hint { display: block; } .grid { gap: 40px; }
-            .letter-interaction-area { min-height: 350px; } .amplop { transform: scale(0.65); } .amplop-glow { transform: scale(0.65); } .old-paper { padding: 40px 25px; } .old-paper p { font-size: 1.1rem; text-indent: 20px; }
-            #penguin-companion { width: 80px; } .penguin-bubble { bottom: 90px; font-size: 0.85rem; }
+            /* Pengecilan Font dan Jarak agar tidak bertumpuk di HP */
+            #cover-page { padding: 15px; justify-content: space-evenly; }
+            #cover-page h1, #cover-title { font-size: 2.2rem; margin-bottom: 10px; line-height: 1.3;}
+            #cover-page p, #cover-desc { font-size: 1rem; margin-bottom: 20px; line-height: 1.5; padding: 0 10px; }
+            
+            .btn-buka { padding: 10px 30px; font-size: 1rem; }
+            .password-input { width: 180px; font-size: 1rem; }
+            .mcq-grid { max-width: 280px; gap: 8px; }
+            .btn-mcq { padding: 10px 8px; font-size: 0.95rem; }
+            
+            .hero h1 { font-size: 3rem; } 
+            .section-title { font-size: 2.5rem; margin-bottom: 40px; } 
+            .mobile-hint { display: block; margin-top: -20px;} 
+            .grid { gap: 30px; }
+            
+            .letter-interaction-area { min-height: 300px; } 
+            .amplop { transform: scale(0.65); } 
+            .amplop-glow { transform: scale(0.65); } 
+            .old-paper { padding: 40px 25px; } 
+            .old-paper p { font-size: 1.1rem; text-indent: 20px; }
+            
+            #penguin-companion { width: 80px; left: calc(50vw - 40px); } 
+            .penguin-bubble { bottom: 90px; font-size: 0.85rem; }
         }
