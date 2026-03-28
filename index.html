@@ -14,9 +14,7 @@
 </head>
 
 <body>
-     <!-- Preload="auto" agar musik siap tanpa delay -->
     <audio id="bg-music" src="src/kota_ini_tak_sama_tanpamu.mp3" loop preload="auto"></audio>
-
     <div id="fireflies-container"></div>
 
     <div id="penguin-companion">
@@ -31,16 +29,13 @@
         <button class="btn-buka" id="btn-awal" onclick="tampilkanAreaPassword()">Buka</button>
 
         <div class="password-container" id="password-area">
-            <p style="font-style: italic; color: var(--text-sepia); margin-bottom: 15px; font-size: 1.1rem; text-align: center;">
-                Kapan hari yang spesial itu?</p>
-
+            <p style="font-style: italic; color: var(--text-sepia); margin-bottom: 15px; font-size: 1.1rem; text-align: center;">Kapan hari yang spesial itu?</p>
             <div class="mcq-grid">
                 <button class="btn-mcq" onclick="cekPasswordPilihan('salah')">14 Februari</button>
                 <button class="btn-mcq" onclick="cekPasswordPilihan('benar')">29 Maret</button>
                 <button class="btn-mcq" onclick="cekPasswordPilihan('salah')">17 Agustus</button>
                 <button class="btn-mcq" onclick="cekPasswordPilihan('salah')">25 Desember</button>
             </div>
-
             <p class="error-msg" id="error-msg">Coba ingat lagi!</p>
         </div>
     </div>
@@ -52,7 +47,7 @@
         </section>
 
         <section class="cake-section slow-fade" id="cake-section">
-            <h2 class="section-title" style="margin-bottom: 10px; font-size: 3rem;">Waktunya Membuat Harapan</h2>
+            <h2 class="section-title" style="margin-bottom: 10px;">Waktunya Membuat Harapan</h2>
             <div class="cake-container">
                 <div class="cake">
                     <div class="candle"></div>
@@ -63,8 +58,7 @@
                     <div class="icing"></div>
                 </div>
             </div>
-            <p class="cake-instruction" id="cake-instruction">Pejamkan mata, ucapkan harapanmu dalam hati,<br>lalu
-                <b>sentuh apinya</b> untuk meniup lilin.</p>
+            <p class="cake-instruction" id="cake-instruction">Pejamkan mata, ucapkan harapanmu dalam hati,<br>lalu <b>sentuh apinya</b> untuk meniup lilin.</p>
             <p class="wish-text" id="wish-text" style="display: none;">Harapanmu pasti akan didengar oleh semesta. Aamiin. ✨</p>
         </section>
 
@@ -93,9 +87,7 @@
 
             <section class="letter-section slow-fade">
                 <div class="letter-interaction-area">
-
                     <div class="amplop-glow" id="amplop-glow"></div>
-
                     <div class="amplop-container" id="amplop-container" onclick="bukaAmplop(event)" title="Sentuh untuk membuka surat">
                         <div class="amplop-float">
                             <div class="amplop">
@@ -131,7 +123,6 @@
                             sebagai orang yang "lebih baik".</p>
                         <p>Happy birthday, Yuni Azira.</p>
 
-                        <!-- Bagian Tanda Tangan -->
                         <div style="text-align: right; margin-top: 60px; padding-right: 20px;">
                             <div style="height: 80px; margin-bottom: 10px; display: flex; justify-content: flex-end; align-items: center;">
                                 <span style="font-family: 'Dancing Script', cursive; font-size: 3.5rem; color: var(--accent-dusty);">Airi</span>
