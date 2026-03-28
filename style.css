@@ -1,5 +1,5 @@
  /* ==========================================
-           TEMA: VINTAGE NOSTALGIA & MAGICAL WARMTH
+           TEMA: VINTAGE NOSTALGIA & ELEGANT WARMTH
            ========================================== */
  :root {
      --bg-paper: #f4ecd8;
@@ -7,7 +7,6 @@
      --accent-dusty: #c08a8a;
      --photo-border: #fffbf0;
      --shadow-warm: rgba(92, 77, 66, 0.15);
-     --gold-glow: rgba(255, 215, 0, 0.4);
  }
 
  * {
@@ -25,6 +24,7 @@
      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4' viewBox='0 0 4 4'%3E%3Cpath fill='%239C92AC' fill-opacity='0.05' d='M1 3h1v1H1V3zm2-2h1v1H3V1z'%3E%3C/path%3E%3C/svg%3E");
  }
 
+ /* Overlay Vignette Lembut */
  body::after {
      content: "";
      position: fixed;
@@ -38,19 +38,6 @@
      mix-blend-mode: multiply;
  }
 
- body::before {
-     content: "";
-     position: fixed;
-     top: 0;
-     left: 0;
-     width: 100%;
-     height: 100%;
-     pointer-events: none;
-     z-index: 9991;
-     background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.07'/%3E%3C/svg%3E");
-     opacity: 0.6;
- }
-
  h1,
  h2,
  h3 {
@@ -58,57 +45,6 @@
      font-weight: 700;
      color: var(--text-sepia);
      letter-spacing: 1px;
- }
-
- /* ==========================================
-           EFEK KUNANG-KUNANG / DEBU MAGIS (OPTIMIZED)
-           ========================================== */
- #fireflies-container {
-     position: fixed;
-     top: 0;
-     left: 0;
-     width: 100vw;
-     height: 100vh;
-     pointer-events: none;
-     z-index: 0;
-     opacity: 0;
-     transition: opacity 3s ease;
- }
-
- #fireflies-container.active {
-     opacity: 1;
- }
-
- .firefly {
-     position: absolute;
-     background: radial-gradient(circle, #fff 0%, #ffe066 40%, transparent 80%);
-     border-radius: 50%;
-     pointer-events: none;
-     box-shadow: 0 0 8px 2px rgba(255, 215, 0, 0.5);
-     animation: float-firefly linear infinite;
-     will-change: transform, opacity;
- }
-
- @keyframes float-firefly {
-     0% {
-         transform: translate3d(0, 100vh, 0) scale(0);
-         opacity: 0;
-     }
-
-     20% {
-         opacity: 1;
-         transform: translate3d(-20px, 80vh, 0) scale(1);
-     }
-
-     80% {
-         opacity: 1;
-         transform: translate3d(20px, 20vh, 0) scale(1);
-     }
-
-     100% {
-         transform: translate3d(-10px, -10vh, 0) scale(0);
-         opacity: 0;
-     }
  }
 
  /* ==========================================
@@ -285,7 +221,6 @@
      z-index: 1;
  }
 
- /* OPTIMASI: Menghapus transform translate3d agar tidak memberatkan saat scroll */
  .slow-fade {
      opacity: 0;
      transition: opacity 1.2s ease-out;
@@ -505,7 +440,7 @@
 
  /* --- GALLERY SECTION (STATIS & ANTI-LAG) --- */
  .gallery-section {
-     padding: 40px 20px 120px 20px;
+     padding: 40px 20px 80px 20px;
      max-width: 1100px;
      margin: 0 auto;
      position: relative;
@@ -533,9 +468,6 @@
      box-shadow: 5px 5px 20px var(--shadow-warm), inset 0 0 20px rgba(0, 0, 0, 0.05);
      transform: rotate(-2deg);
      position: relative;
-     content-visibility: auto;
-     /* Optimasi render lanjutan */
-     contain: paint;
  }
 
  .photo-frame:nth-child(even) {
@@ -554,15 +486,11 @@
      border: 1px solid rgba(0, 0, 0, 0.1);
  }
 
- /* Gambar normal statis yang ringan dirender dengan GPU acceleration murni */
  .img-container img {
      width: 100%;
      height: 100%;
      object-fit: cover;
      border-radius: 4px;
-     transform: translateZ(0);
-     /* Force GPU render spesifik untuk gambar agar tidak frame drop */
-     backface-visibility: hidden;
  }
 
  .img-container::after {
@@ -576,16 +504,32 @@
      pointer-events: none;
  }
 
- /* Hint dihapus karena interaksi klik pada gambar dihilangkan */
- .mobile-hint {
-     display: none;
+ .scroll-hint {
+     text-align: center;
+     font-style: italic;
+     color: var(--accent-dusty);
+     margin-top: 60px;
+     font-size: 1.2rem;
+     animation: bounce-soft 2s infinite;
+ }
+
+ @keyframes bounce-soft {
+
+     0%,
+     100% {
+         transform: translate3d(0, 0, 0);
+     }
+
+     50% {
+         transform: translate3d(0, 8px, 0);
+     }
  }
 
  /* ==========================================
-           INTERAKSI AMPLOP & SURAT CINTA
+           INTERAKSI AMPLOP & SURAT CINTA (SEDERHANA)
            ========================================== */
  .letter-section {
-     padding: 50px 20px 150px 20px;
+     padding: 30px 20px 150px 20px;
      display: flex;
      justify-content: center;
      position: relative;
@@ -598,67 +542,21 @@
      display: flex;
      justify-content: center;
      align-items: center;
-     min-height: 450px;
- }
-
- .amplop-glow {
-     position: absolute;
-     width: 450px;
-     height: 300px;
-     background: radial-gradient(circle, rgba(255, 215, 0, 0.25) 0%, transparent 65%);
-     border-radius: 50%;
-     animation: pulse-glow 3s infinite alternate;
-     z-index: 1;
-     opacity: 0.7;
-     pointer-events: none;
- }
-
- @keyframes pulse-glow {
-     0% {
-         transform: scale(1);
-         opacity: 0.5;
-     }
-
-     100% {
-         transform: scale(1.3);
-         opacity: 0.9;
-     }
+     min-height: 400px;
  }
 
  .amplop-container {
      position: absolute;
      z-index: 10;
      cursor: pointer;
-     transition: all 0.8s ease;
- }
-
- .amplop-float {
-     animation: float-amplop 3.5s ease-in-out infinite;
- }
-
- @keyframes float-amplop {
-
-     0%,
-     100% {
-         transform: translate3d(0, 0, 0);
-     }
-
-     50% {
-         transform: translate3d(0, -15px, 0);
-     }
+     transition: opacity 0.8s ease;
  }
 
  .amplop {
      position: relative;
      width: 450px;
      height: 300px;
-     filter: drop-shadow(0 20px 30px rgba(92, 77, 66, 0.4));
- }
-
- .amplop-container:not(.open):hover .amplop-seal {
-     transform: translate3d(-50%, -50%, 0) scale(1.1);
-     background-color: #ba5757;
-     box-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+     filter: drop-shadow(0 10px 20px rgba(92, 77, 66, 0.2));
  }
 
  .amplop-back {
@@ -682,7 +580,7 @@
      border-radius: 5px;
      box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
      z-index: 2;
-     transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1) 0.4s;
+     transition: transform 0.6s ease;
  }
 
  .amplop-front {
@@ -725,8 +623,6 @@
      border-bottom: 150px solid #dcb897;
      z-index: 4;
      border-radius: 0 0 8px 8px;
-     transform-origin: bottom;
-     transform: scale(1.01);
  }
 
  .amplop-flap {
@@ -737,7 +633,7 @@
      border-right: 225px solid transparent;
      border-top: 160px solid #c8a382;
      transform-origin: top;
-     transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1), z-index 0s 0.25s;
+     transition: transform 0.6s ease, z-index 0s 0.25s;
      z-index: 5;
  }
 
@@ -755,7 +651,7 @@
      letter-spacing: 1px;
      z-index: 6;
      box-shadow: 0 8px 20px rgba(166, 76, 76, 0.4);
-     transition: all 0.3s ease;
+     transition: transform 0.3s ease;
      white-space: nowrap;
  }
 
@@ -770,16 +666,15 @@
  }
 
  .amplop-container.open .amplop-kertas-mini {
-     transform: translate3d(0, -120px, 0);
+     transform: translate3d(0, -80px, 0);
  }
 
  .amplop-container.fade-out {
      opacity: 0;
-     transform: translate3d(0, 50px, 0) scale(0.9);
      pointer-events: none;
  }
 
- /* --- Kertas Surat Asli --- */
+ /* --- Kertas Surat Asli (Sangat Ringan) --- */
  .old-paper {
      background-color: #fffdf7;
      padding: 80px 60px;
@@ -831,18 +726,6 @@
      z-index: 20;
  }
 
- .stardust {
-     position: absolute;
-     width: 6px;
-     height: 6px;
-     background-color: #ffd700;
-     border-radius: 50%;
-     pointer-events: none;
-     z-index: 100;
-     opacity: 0;
-     box-shadow: 0 0 10px #ffd700, 0 0 20px #ffaa00;
- }
-
  footer {
      text-align: center;
      padding: 60px 20px;
@@ -854,7 +737,7 @@
  }
 
  /* ==========================================
-           MASKOT PENGUIN COMPANION (OPTIMIZED GPU)
+           MASKOT PENGUIN COMPANION
            ========================================== */
  #penguin-companion {
      position: fixed;
@@ -943,7 +826,7 @@
  }
 
  /* ==========================================
-           REVISI TOTAL: RESPONSIVE LAYOUT UNTUK HP
+           RESPONSIVE LAYOUT UNTUK HP
            ========================================== */
  @media (max-width: 768px) {
      #cover-page {
@@ -1002,14 +885,6 @@
 
      .photo-frame {
          box-shadow: 2px 2px 10px rgba(92, 77, 66, 0.1);
-         content-visibility: auto;
-         contain: paint;
-     }
-
-     .img-container img {
-         filter: sepia(0.3) contrast(1) brightness(0.9);
-         transform: translateZ(0);
-         backface-visibility: hidden;
      }
 
      .letter-interaction-area {
@@ -1017,10 +892,6 @@
      }
 
      .amplop {
-         transform: scale(0.65);
-     }
-
-     .amplop-glow {
          transform: scale(0.65);
      }
 
